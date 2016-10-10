@@ -1,0 +1,171 @@
+/*日历组件样式*/
+
+.m-calendar .blue{
+    background-color: #958AF6;
+}
+.m-calendar{
+	width: 400px;
+	overflow: hidden;
+
+}
+.m-calendar-body{
+  border:1px solid #9E9C9C;
+}
+.m-calendar table{
+	position: relative;
+	border-collapse:separate;
+	border-spacing:2px;
+	font:16px "microsoft yahei";
+
+}
+.m-calendar .title{
+    margin-bottom: 10px;
+    width: 400px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+	font:20px "microsoft yahei";
+
+}
+.m-calendar span{
+   display: inline-block;
+   vertical-align: middle; 
+   line-height: 40px;
+}
+.m-calendar .year,.m-calendar .month{
+	font-size: 22px;
+	margin:0 5px;
+}
+.m-calendar span.arrow{
+	height: 0;
+	width:0;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+}
+
+/*画三角*/
+.m-calendar span.before{
+   margin-right: 15px; 
+   border-right:11px solid #fff; 
+
+}
+.m-calendar span.after{
+  border-left:11px solid #fff; 
+	margin-left: 15px;
+}
+.m-calendar td{
+	padding:2px;
+	margin:2px;
+	height: 50px;
+	width: 80px;
+	text-align: center;
+	cursor: pointer;
+
+}
+.m-calendar td:hover{
+	box-shadow:inset 0 0 0 2px #9E9C9C;	
+}
+.m-calendar td:hover.active,.m-calendar td:hover.currentActive{
+	box-shadow:inset 0 0 0 2px #343434;
+}
+
+.m-calendar .beforeMonth,.m-calendar .afterMonth{
+	color: #9E9C9C;
+}
+.m-calendar .active{
+	box-shadow:inset 0 0 0 2px #9E9C9C;
+}
+.m-calendar .currentActive{
+	box-shadow:inset 0 0 0 2px #9E9C9C;
+	color: #fff;
+}
+
+ /*日历显示框样式*/
+.m-calendar-control{
+  width: 396px;
+  height: 65px;
+  border: 1px solid;
+  box-shadow: inset 0 0 0 1px ;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+ .m-calendar-control .button{
+  float: left;
+  text-align: center;
+  /*border-right: 1px solid;*/
+  font:16px "microsoft yahei";
+  cursor: pointer;
+
+  } 
+  .m-calendar-control .time{
+    text-align: center;
+    margin-left: 3px;
+  }
+.m-calendar-control .button .icon{
+  display: inline-block;
+  background: url(../pic/calenderbutton.jpg) no-repeat -45px -9px;
+  background-size: 120px;
+  margin: 3px 0 0 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.m-calendar-control .dateandday{
+  margin: 0 0 0 65px;
+  height: 65px;
+  width: 300px;
+  border-left: 1px solid;
+  font:22px "microsoft yahei";
+  /*line-height: 60px;*/
+  text-align: left;
+  
+}
+.m-calendar-control .dateandday .date{
+  display: block;
+  margin-left: 20px;
+
+  /*margin-top: 5px;*/
+  outline: none;
+  height: 35px;
+  width: 300px;
+  border:none;
+  border-top: 1px solid;
+  font-size: 22px;
+}
+.m-calendar-control .dateandday .remind{
+  display: block;
+  margin-left: 20px;
+  height: 20px;
+  width: 300px;
+  border: none;
+  font-size:16px;
+  color: #767575;
+  text-align: left;
+  overflow: hidden;
+}
+
+.m-calendar .tobechoose{
+  background-color: #FCBBBB;
+}
+
+.m-calendar .disable{
+  color: #CBCACA;
+}
+.m-calendar .choose {
+  margin-top: 20px;
+  /*margin-left: -30px;*/
+}
+.m-calendar .choose button{
+   /*display: block;
+   float: left;*/
+   width: 30%;
+   margin-left: 10px;
+   background-color: #fff;
+   border:1px solid #9E9C9C;
+   box-sizing: border-box;
+   height: 40px;
+}
+.m-calendar .choose button:hover{
+  box-shadow:inset 0 0 0 1px #9E9C9C; 
+}

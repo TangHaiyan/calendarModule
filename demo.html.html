@@ -1,0 +1,66 @@
+ <!DOCTYPE html>
+ <html>
+ <head>
+    <meta charset="utf-8">
+ 	<title>日历</title>
+  <link rel="stylesheet" type="text/css" href="./css/index.css">
+  
+ </head>
+ <body>
+ <script type="text/javascript" src="./lib/jquery.js"></script>
+ <script type="text/javascript" src="./js/moduleIndex.js"></script>
+ <script type="text/javascript">
+
+ var calendarA =new Calendar({
+         IsChooseSingle:false,
+         IsShowCalendar:true,
+         chooseSingleCallback:function(){alert("选中日期")},
+         chooseRangeCallback:function(){alert("选择日期范围")},
+ });
+ //日历更新绑定事件
+ $('.arrow').click(function(event){
+  calendarA.NextGetDate(event);
+ });
+
+  //选择具体日期绑定事件
+  $('td').click(function(event){
+    calendarA.choose(event);
+  });
+
+ //注册事件
+ calendarA.on('show',function(){
+      if(calendarA.calendarBody.is(":visible")){
+           calendarA.calendarBody.hide()
+           calendarA.chooseButton.hide();
+        
+      }else{
+        calendarA.calendarBody.show();
+        if (!calendarA.config.IsChooseSingle) {
+          calendarA.chooseButton.show();
+        }else{
+          console.log(2);
+          calendarA.chooseButton.hide();
+        }      
+      }
+  }).on('single',function(){
+      if (calendarA.config.IsChooseSingle){
+      calendarA.config.chooseSingleCallback();     
+    }
+  }).on('range',function(){
+      calendarA.config.chooseRangeCallback();
+  }).on('confirm',function(){
+      calendarA.confirmChoose();
+  }).on('cancel',function(){
+      calendarA.cancelChoose();
+  }).on('clear',function(){
+      calendarA.clearChoose();
+  }).on('clear',function(){
+    $('.date').val(calendarA.formatDate(calendarA.config.time,"yyyy-MM-dd"));
+  })
+
+
+ </script>
+ </body>
+ </html>
+
+

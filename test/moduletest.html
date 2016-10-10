@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>测试</title>
+</head>
+<body>
+<button></button>
+<!--  <div class=m-calender>
+ <div class="m-calender-control">
+     <div class="button">
+         <div class="icon"></div>
+         <div class="time">15:40</div>
+     </div>
+     <div class="dateandday">
+         <input class="date" type="text" name="date" value="2016-10-09"> 
+         <div class="remind">无事件</div>
+      </div>  
+ </div>
+    <div class='title'><span class="before arrow"></span><span class="year">2016</span>年<span class="month">10</span>月<span class="after arrow"></span></div>
+ <table >
+    <tbody>
+      <tr>
+        <th>Su</th>
+        <th>Mo</th>
+        <th>Tu</th>
+        <th>We</th>
+        <th>Tu</th>
+        <th>Fr</th>
+        <th>Sa</th>
+      </tr>
+    
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+      <td>13</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>16</td>
+      <td>17</td>
+      <td>18</td>
+      <td>19</td>
+      <td>20</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>16</td>
+      <td>17</td>
+      <td>18</td>
+      <td>19</td>
+      <td>20</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>16</td>
+      <td>17</td>
+      <td>18</td>
+      <td>19</td>
+      <td>20</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>16</td>
+      <td>17</td>
+      <td>18</td>
+      <td>19</td>
+      <td>20</td>
+      <td>21</td>
+    </tr>
+
+  </tbody>
+ </table>
+ </div> -->
+
+<script type="text/javascript" src="../lib/jquery.js"></script>
+<script type="text/javascript">
+
+  function CreateTable(rowCount,cellCount){ 
+     var table=$("<table>");                   
+     for(var i=0;i<rowCount;i++){
+         var tr=$("<tr></tr>");
+        tr.appendTo(table);
+        for(var j=0;j<cellCount;j++){
+           if (i==0) {
+           	var thDay=["Su","Mo","Tu","We","Tu","Fr","Sa"];
+            var th=$('<th>'+thDay[j]+'</th>');
+              th.appendTo(tr);
+            }else{
+           var td=$("<td></td>");
+           td.appendTo(tr);
+          }
+        }
+     }
+     return table.html();     
+  }
+var dates=document.getElementsByTagName('td');
+
+
+
+  function GetDate(year,month,date){
+      var time=new Date(year,month,date),
+          day=time.getDay();
+      var x=day,
+          y=date%7<x?Math.ceil((date/7)):Math.ceil((date/7))+1;
+      var index=x+7*y-7;
+    $(dates[index]).text(date);
+
+    //向前填充日期，并为上个月份日期添加类名。
+    for (var i = index; i >0; i--) { 
+          (function (num){
+              //如果为1月份，则年份减一，日期天数为12月的31天
+              var beforYear=month==0?year-1:year;
+              var beforeDates=month==0?31:new Date(year,month,0).getDate();
+              var beforDate=(date-(index-num+1))>0?date-(index-num+1):beforeDates+(date-(index-num+1));
+              $(dates[num-1]).text(beforDate); 
+              if ((date-(index-num+1))-1<0) {
+                $(dates[num-1]).addClass('beforeMonth');  
+              } 
+
+          })(i)
+    
+    }
+    //向后填充日期，并为下个月份日期添加类名。
+    for (var i = index,lens=dates.length;i < lens; i++) {
+       (function (num){
+           //如果为12月份，则年份加一。
+            var afterYear=month==11?year+1:year;
+            var currentDates=new Date(year,month+1,0).getDate();
+            var afterDate=(date+(num-index))<currentDates?date+(num-index+1):num-(index+currentDates-date)+1;
+              $(dates[num+1]).text(afterDate);  
+
+            if ((date+(num-index))>currentDates-1) {
+              $(dates[num+1]).addClass('afterMonth');
+            }                            
+        })(i)
+    }
+
+}
+
+	function Calender(){
+        this.time=new Date(),
+        this.currentDay=this.time.getDay(),
+        this.currentYear=this.time.getFullYear(),
+        this.currentMonth=this.time.getMonth(),
+        this.currentDate=this.time.getDate();
+
+       this.body=$('body');       
+       this.container=this.body||this.container;
+       this.calender=$('<div class="m-calender"></div>');
+       this.calenderTitle=$('<div class="title"><span class="before arrow"></span><span class="year"></span>年<span class="month"></span>月<span class="after arrow"></span></div>');
+       this.table=$('<table></table>');
+       this.table.html(CreateTable(7,7));
+
+       this.CreateTable();
+       this.init();
+    }
+    Calender.prototype={
+         CreateTable:function(){
+            this.calenderTitle.appendTo(this.calender);
+            this.table.appendTo(this.calender);
+            this.calender.appendTo(this.container);
+        },
+        init: function(){
+        var x=this.currentDay;
+            y=this.currentDate%7<x?Math.ceil((this.currentDate/7)):Math.ceil((this.currentDate/7))+1;
+        var index=x+7*y-7;
+        GetDate(this.currentYear,this.currentMonth,this.currentDate);
+          $(dates[index]).addClass('currentActive');
+        $('.month').text(this.currentMonth+1);
+        $('.year').text(this.currentYear);  
+      }
+    }
+    var calenderA=new Calender();
+   
+    console.log(calenderA.table.html());
+    console.log(calenderA.time);
+    console.log(calenderA.year);
+</script>
+
+</body>
+</html>
